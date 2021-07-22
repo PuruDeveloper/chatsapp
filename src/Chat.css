@@ -31,17 +31,7 @@
 }
 
 .chat__body {
-  background: #06beb6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #48b1bf,
-    #06beb6
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #48b1bf,
-    #06beb6
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: white;
   flex: 1;
   background-repeat: repeat;
   background-position: center;
@@ -55,12 +45,12 @@
   padding: 10px;
   border-radius: 10px;
   width: fit-content;
-  background-color: #ffffff;
+  background-color: rgb(226, 209, 211);
 }
 
 .chat__reciever {
   margin-left: auto;
-  background-color: #dcf8c6;
+  background-color: rgb(127, 127, 223);
 }
 
 .chat__name {
