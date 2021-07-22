@@ -9,14 +9,14 @@ import MoreVert from "@material-ui/icons/MoreVert";
 import db from "./firebase";
 
 function Chat() {
-  const [seed, setSeed] = useState("");
+  const { seed } = useParams();
   const [input, setInput] = useState("");
   const { roomId } = useParams();
   const { roomName } = useParams();
 
-  useEffect(() => {
-    setSeed(Math.floor(Math.random() * 5000));
-  }, []);
+  // useEffect(() => {
+  //   setSeed(Math.floor(Math.random() * 5000));
+  // }, []);
 
   const sendMessage = (e) => {
     e.preventDefault();
