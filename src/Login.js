@@ -1,12 +1,15 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { auth, provider } from "./firebase";
 import "./Login.css";
 import { actionTypes } from "./Reducer";
 import { useStateValue } from "./StateProvider";
+import db from "./firebase";
 
 function Login() {
-  const [{}, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
+  const [userName, setUserName] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
   const signIn = () => {
     auth
@@ -15,6 +18,18 @@ function Login() {
         dispatch({
           type: actionTypes.SET_USER,
           user: result.user,
+        });
+        console.log(result.user.uid);
+        // db.collection("users");
+
+        setUserPassword(Math.floor(Math.random() * 10000000));
+        setUserName(result.user.email);
+
+        db.collection("users").add({
+          username: result.user.email,
+          userid: result.user.uid,
+          userpassword: Math.floor(Math.random() * 10000000),
+          userphoto: result.user?.photoURL,
         });
       })
       .catch((error) => alert(error.message));
