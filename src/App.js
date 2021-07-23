@@ -7,11 +7,11 @@ import Login from "./Login";
 import { useStateValue } from "./StateProvider";
 
 function App() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, userEmail, userName }, dispatch] = useStateValue();
   return (
     //BEM naming convention
     <div className="app">
-      {!user ? (
+      {!userName ? (
         <Login />
       ) : (
         <div className="app__body">

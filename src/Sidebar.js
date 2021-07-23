@@ -66,7 +66,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar__header">
         <Avatar src={user?.photoURL} alt="" />
-        <h4>{userName}</h4>
+        {/* <h4>{userName}</h4> */}
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLagreIcon />

@@ -23,7 +23,7 @@ function Login() {
     );
   }, []);
 
-  const signIn = () => {
+  const googleSignIn = () => {
     auth
       .signInWithPopup(provider)
       .then((result) => {
@@ -31,7 +31,6 @@ function Login() {
         // db.collection("users");
 
         setUserPassword(Math.floor(Math.random() * 10000000));
-        setUserName(result.user.email);
 
         {
           users.map((user) => {
@@ -52,6 +51,8 @@ function Login() {
           dispatch({
             type: actionTypes.SET_USER,
             user: result.user,
+            userName: result.user.email,
+            userEmail: result.user.email,
           });
           alert("Welcome to the chatsapp");
         } else if (testValue > 0) {
@@ -59,6 +60,7 @@ function Login() {
             type: actionTypes.SET_USER,
             user: result.user,
             userName: result.user.email,
+            userEmail: result.user.email,
           });
           alert("We are glad you came back");
         }
@@ -72,7 +74,8 @@ function Login() {
           <h1>Sign in to chatsapp</h1>
         </div>
 
-        <Button onClick={signIn}>Sign In With Google</Button>
+        <Button onClick={googleSignIn}>Sign In With Google</Button>
+        <Button>Sign In Manually</Button>
       </div>
     </div>
   );
