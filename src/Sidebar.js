@@ -7,11 +7,37 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { SearchOutlined } from "@material-ui/icons";
 import SidebarChat from "./SidebarChat";
 import db from "./firebase";
+import { useParams } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
 function Sidebar() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, userName }, dispatch] = useStateValue();
+
   const [rooms, setRooms] = useState([]);
+  const { roomId } = useParams();
+  const [roommates, setRoommates] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
+      setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+  }, []);
+
+  useEffect(() => {
+    db.collection("rooms")
+      .doc(roomId)
+      .collection("roommates")
+      .onSnapshot((snapshot) =>
+        setRoommates(snapshot.docs.map((doc) => doc.data()))
+      );
+  }, []);
+
   useEffect(() => {
     const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
       setRooms(
@@ -21,6 +47,16 @@ function Sidebar() {
         }))
       )
     );
+    // console.log(user);
+
+    // const unsubscribe = db.collection("rooms").collection(roommates).onSnapshot((snapshot) =>
+    //   setRooms(
+    //     snapshot.docs.map((doc) => ({
+    //       id: doc.id,
+    //       data: doc.data(),
+    //     }))
+    //   )
+    // );
 
     return () => {
       unsubscribe();
@@ -30,6 +66,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar__header">
         <Avatar src={user?.photoURL} alt="" />
+        <h4>{userName}</h4>
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLagreIcon />

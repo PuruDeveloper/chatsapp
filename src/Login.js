@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth, provider } from "./firebase";
 import "./Login.css";
 import { actionTypes } from "./Reducer";
@@ -10,27 +10,58 @@ function Login() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [users, setUsers] = useState([]);
+  let testValue = 0;
+  useEffect(() => {
+    const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
+      setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+  }, []);
 
   const signIn = () => {
     auth
       .signInWithPopup(provider)
       .then((result) => {
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
         console.log(result.user.uid);
         // db.collection("users");
 
         setUserPassword(Math.floor(Math.random() * 10000000));
         setUserName(result.user.email);
 
-        db.collection("users").add({
-          username: result.user.email,
-          userid: result.user.uid,
-          userpassword: Math.floor(Math.random() * 10000000),
-          userphoto: result.user?.photoURL,
-        });
+        {
+          users.map((user) => {
+            if (user.data.username === result.user.email) {
+              testValue++;
+            }
+          });
+        }
+        if (testValue === 0) {
+          db.collection("users").add({
+            username: result.user.email,
+            useremail: result.user.email,
+            userpassword: Math.floor(Math.random() * 10000000),
+            userphoto: result.user?.photoURL,
+          });
+
+          //
+          dispatch({
+            type: actionTypes.SET_USER,
+            user: result.user,
+          });
+          alert("Welcome to the chatsapp");
+        } else if (testValue > 0) {
+          dispatch({
+            type: actionTypes.SET_USER,
+            user: result.user,
+            userName: result.user.email,
+          });
+          alert("We are glad you came back");
+        }
       })
       .catch((error) => alert(error.message));
   };
