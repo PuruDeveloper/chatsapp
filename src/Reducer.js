@@ -16,6 +16,7 @@ const reducer = (state, action) => {
         ...state,
         user: action.user,
         userName: action.userName,
+        userEmail: action.userEmail,
       };
     default:
       return state;

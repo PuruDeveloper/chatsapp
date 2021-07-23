@@ -7,7 +7,7 @@
   padding: 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgb(150, 85, 85);
 }
 
 .chat__headerInfo {
@@ -40,17 +40,25 @@
 }
 
 .chat__message {
+  margin-left: auto;
   position: relative;
   font-size: 16px;
   padding: 10px;
   border-radius: 10px;
   width: fit-content;
   background-color: rgb(226, 209, 211);
+  margin-bottom: 16px;
 }
 
 .chat__reciever {
   margin-left: auto;
+  position: relative;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
   background-color: rgb(127, 127, 223);
+  margin-bottom: 16px;
 }
 
 .chat__name {

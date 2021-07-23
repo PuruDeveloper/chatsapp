@@ -5,13 +5,28 @@ import db from "./firebase";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
+import firebase from "firebase";
 
 function SidebarChat({ addNewChat, id, name }) {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, userEmail, userName }, dispatch] = useStateValue();
   const [seed, setSeed] = useState("");
   const { roomId } = useParams();
   const [roommates, setRoommates] = useState([]);
   const [users, setUsers] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    if (id) {
+      db.collection("rooms")
+        .doc(id)
+        .collection("messages")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setMessages(snapshot.docs.map((doc) => doc.data()))
+        );
+    }
+  });
 
   useEffect(() => {
     const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
@@ -32,21 +47,27 @@ function SidebarChat({ addNewChat, id, name }) {
       .onSnapshot((snapshot) =>
         setRoommates(snapshot.docs.map((doc) => doc.data()))
       );
+
+    db.collection("rooms").onSnapshot((snapshot) =>
+      setRooms(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
   }, []);
 
   const createChat = () => {
     const roomName = prompt("Please enter room name");
 
     if (roomName) {
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
       db.collection("rooms").add({
         name: roomName,
+        timestamp: timestamp,
+        chatadmin: userName,
       });
-
-      // db.collection("rooms").doc(roomId).collection("roommates").add({
-      //   username: user.email,
-      //   useremail: user.email,
-      // });
-      // console.log(user);
     }
   };
 
@@ -58,7 +79,7 @@ function SidebarChat({ addNewChat, id, name }) {
         </div>
         <div className="sidebarChat__info">
           <h2>{name}</h2>
-          <p>Last message...</p>
+          <p>{messages[0]?.message}</p>
         </div>
       </div>
     </Link>
