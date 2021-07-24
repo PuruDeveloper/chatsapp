@@ -10,8 +10,11 @@ function Login() {
   const [{ user, userName, userEmail }, dispatch] = useStateValue();
   const [userPassword, setUserPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const [uid, setUid] = useState("");
+  let photoURL = "";
+  let uid = "";
   let testValue = 0;
+  let username = "";
+  let useremail = "";
 
   useEffect(() => {
     const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
@@ -24,52 +27,58 @@ function Login() {
     );
   }, []);
 
-  const userHexcodeCheck = () => {
-    setTimeout(() => {
-      console.log(userName);
-    }, 5000);
-    const hexcode = Math.random(Math.floor() * 10000);
-    {
-      users.map((user) => {
-        for (let i = 0; i < users.length; i++) {
-          if (user.data.uid === uid) {
-            testValue = 1;
-          }
-          break;
-        }
-      });
-    }
-
-    console.log(userName);
-    console.log(testValue);
-  };
+  // const userHexcodeCheck = () => {
+  //   console.log(userName);
+  //   console.log(testValue);
+  // };
 
   async function googleSignUp() {
     auth
       .signInWithPopup(provider)
       .then((result) => {
         console.log(result.user.uid);
-        setUid(result.user.uid);
+
         // db.collection("users");
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-          userName: result.user.displayName,
-          userEmail: result.user.email,
-        });
+        // dispatch({
+        //   type: actionTypes.SET_USER,
+        //   user: result.user,
+        //   userName: result.user.displayName,
+        //   userEmail: result.user.email,
+        // });
 
         setUserPassword(Math.floor(Math.random() * 10000000));
-        userHexcodeCheck();
+        setTimeout(() => {
+          console.log(userName);
+        }, 5000);
+        //If the user is already registered then we take his username and useremail and uid from the database because he can edit those.
+        {
+          users.map((user) => {
+            for (let i = 0; i < users.length; i++) {
+              if (user.data.uid === result.user.uid) {
+                testValue = 1;
+                username = user.data.username;
+                useremail = user.data.useremail;
+                uid = user.data.uid;
+                photoURL = user.data.userphoto;
+              }
+              break;
+            }
+          });
+        }
 
-        // {
-        //   users.map((user) => {
-        //     // if (user.data.useremail === userEmail) {
-        //     //   testValue++;
-        //     // }
-        //     console.log(user.data.useremail);
-        //   });
-        // }
+        //If testValue === 0 then the user is here for the first time
+        //If testValue !== 0 then the user has already been here befor and is a registered user.
+
         if (testValue === 0) {
+          //Dispatching action so that application knows user has logged in
+          dispatch({
+            type: actionTypes.SET_USER,
+            user: result.user,
+            userName: result.user.displayName,
+            userEmail: result.user.email,
+            uid: result.user.uid,
+            photoURL: result.user.photoURL,
+          });
           db.collection("users").add({
             uid: result.user.uid,
             username: result.user.displayName,
@@ -77,9 +86,18 @@ function Login() {
             userpassword: Math.floor(Math.random() * 10000000),
             userphoto: result.user?.photoURL,
           });
+          testValue = 0;
 
           alert("Welcome to the chatsapp");
         } else if (testValue > 0) {
+          dispatch({
+            type: actionTypes.SET_USER,
+            user: username,
+            userName: username,
+            userEmail: useremail,
+            uid: uid,
+            photoURL: photoURL,
+          });
           alert("We are glad you came back");
           testValue = 0;
         }

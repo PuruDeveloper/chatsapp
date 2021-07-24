@@ -1,10 +1,12 @@
 import "./App.css";
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import Chat from "./Chat";
+import Sidebar from "./components/Sidebar";
+import Chat from "./components/Chat";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import { useStateValue } from "./StateProvider";
+import AccountDetails from "./components/AccountDetails";
+import ChatDetails from "./components/ChatDetails";
 
 function App() {
   const [{ user, userEmail, userName }, dispatch] = useStateValue();
@@ -21,7 +23,12 @@ function App() {
               <Route path="/rooms/:roomName/:seed/:roomId">
                 <Chat />
               </Route>
-              <Route path="/">{/* <Chat /> */}</Route>
+              <Route path="/user/:userEmail/:uid">
+                <AccountDetails />
+              </Route>
+              <Route exact path="/room/:roomName/:seed/:roomId/details">
+                <ChatDetails />
+              </Route>
             </Switch>
           </Router>
           {/* Chat */}

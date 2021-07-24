@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./SidebarChat.css";
 import { Avatar } from "@material-ui/core";
-import db from "./firebase";
+import db from "../firebase";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "../StateProvider";
 import firebase from "firebase";
 
 function SidebarChat({ addNewChat, id, name }) {
@@ -26,20 +26,6 @@ function SidebarChat({ addNewChat, id, name }) {
           setMessages(snapshot.docs.map((doc) => doc.data()))
         );
     }
-  });
-
-  useEffect(() => {
-    const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
-      setUsers(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
-  }, []);
-
-  useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
     db.collection("rooms")
       .doc(roomId)
@@ -56,7 +42,45 @@ function SidebarChat({ addNewChat, id, name }) {
         }))
       )
     );
-  }, []);
+    db.collection("users").onSnapshot((snapshot) =>
+      setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+  }, [id]);
+
+  // useEffect(() => {
+  //   const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
+  //     setUsers(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       }))
+  //     )
+  //   );
+  // }, []);
+
+  // useEffect(() => {
+  //   setSeed(Math.floor(Math.random() * 5000));
+  //   db.collection("rooms")
+  //     .doc(roomId)
+  //     .collection("roommates")
+  //     .onSnapshot((snapshot) =>
+  //       setRoommates(snapshot.docs.map((doc) => doc.data()))
+  //     );
+
+  //   db.collection("rooms").onSnapshot((snapshot) =>
+  //     setRooms(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       }))
+  //     )
+  //   );
+  // }, []);
 
   const createChat = () => {
     const roomName = prompt("Please enter room name");
@@ -66,7 +90,7 @@ function SidebarChat({ addNewChat, id, name }) {
       db.collection("rooms").add({
         name: roomName,
         timestamp: timestamp,
-        chatadmin: userName,
+        chatadmin: userEmail,
       });
     }
   };

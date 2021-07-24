@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, Button, IconButton } from "@material-ui/core";
 import DonutLagreIcon from "@material-ui/icons/DonutLarge";
 import ChatIcon from "@material-ui/icons/Chat";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { SearchOutlined } from "@material-ui/icons";
 import SidebarChat from "./SidebarChat";
-import db from "./firebase";
-import { useParams } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
+import db from "../firebase";
+import { useParams, Link } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
 
 function Sidebar() {
-  const [{ user, userName }, dispatch] = useStateValue();
+  const [{ user, userEmail, uid, photoURL }, dispatch] = useStateValue();
 
   const [rooms, setRooms] = useState([]);
   const { roomId } = useParams();
@@ -65,10 +65,15 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar src={user?.photoURL} alt="" />
-        {/* <h4>{userName}</h4> */}
+        <Avatar src={photoURL} alt="" />
+
         <div className="sidebar__headerRight">
-          <IconButton>
+          <Button>
+            <Link to={`/user/${userEmail}/${uid}`}>
+              My Account <i class="fas fa-cog"></i>
+            </Link>
+          </Button>
+          {/* <IconButton>
             <DonutLagreIcon />
           </IconButton>
           <IconButton>
@@ -76,7 +81,7 @@ function Sidebar() {
           </IconButton>
           <IconButton>
             <MoreVertIcon />
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
       <div className="sidebar__search">
@@ -89,7 +94,7 @@ function Sidebar() {
         <SidebarChat addNewChat />
         {rooms.map(
           (room) =>
-            room.data.chatadmin === userName && (
+            room.data.chatadmin === userEmail && (
               <SidebarChat key={room.id} id={room.id} name={room.data.name} />
             )
         )}
