@@ -1,0 +1,8 @@
+.user__detail {
+  margin-top: 16px;
+}
+
+.user__image img {
+  border-radius: 9999px;
+  margin-top: 20px;
+}

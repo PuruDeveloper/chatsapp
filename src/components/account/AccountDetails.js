@@ -2,6 +2,7 @@ import React from "react";
 import "./AccountDetails.css";
 
 function AccountDetails({
+  photoURL,
   id,
   description,
   username,
@@ -11,9 +12,14 @@ function AccountDetails({
   return (
     <div className="accountdetails">
       <div className="user__detail">
+        <div class="user__image">
+          <img src={photoURL} alt="my-image" />
+        </div>
+      </div>
+      <div className="user__detail">
         <h4>About User</h4>
         {description ? (
-          <h2>description</h2>
+          <h2>{description}</h2>
         ) : (
           "You have not added any description"
         )}

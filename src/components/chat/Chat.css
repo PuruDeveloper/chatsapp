@@ -32,7 +32,7 @@
 }
 
 .chat__body {
-  background: white;
+  background: rgb(238, 232, 232);
   flex: 1;
   background-repeat: repeat;
   background-position: center;
@@ -75,6 +75,7 @@
 }
 
 .chat__footer {
+  background-color: rgb(127, 127, 223);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -101,5 +102,5 @@
 
 .chat__footer .MuiSvgIcon-root {
   padding: 10px;
-  color: gray;
+  color: rgb(98, 79, 81);
 }

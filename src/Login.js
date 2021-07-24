@@ -53,7 +53,7 @@ function Login() {
         //If the user is already registered then we take his username and useremail and uid from the database because he can edit those.
         {
           users.map((user) => {
-            for (let i = 0; i < users.length; i++) {
+            for (let i = 0; i < 1; i++) {
               if (user.data.uid === result.user.uid) {
                 testValue = 1;
                 username = user.data.username;

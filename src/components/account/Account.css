@@ -5,8 +5,3 @@
   padding: 20px;
   background-color: rgb(127, 127, 223);
 }
-
-.user__image img {
-  border-radius: 9999px;
-  margin-top: 20px;
-}

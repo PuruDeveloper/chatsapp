@@ -9,34 +9,13 @@ import SidebarChat from "./SidebarChat";
 import db from "../firebase";
 import { useParams, Link } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
+import SidebarMember from "./SidebarMember";
 
 function Sidebar() {
   const [{ user, userEmail, uid, photoURL }, dispatch] = useStateValue();
 
   const [rooms, setRooms] = useState([]);
   const { roomId } = useParams();
-  const [roommates, setRoommates] = useState([]);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
-      setUsers(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
-  }, []);
-
-  useEffect(() => {
-    db.collection("rooms")
-      .doc(roomId)
-      .collection("roommates")
-      .onSnapshot((snapshot) =>
-        setRoommates(snapshot.docs.map((doc) => doc.data()))
-      );
-  }, []);
 
   useEffect(() => {
     const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
@@ -69,7 +48,7 @@ function Sidebar() {
 
         <div className="sidebar__headerRight">
           <Button>
-            <Link to={`/user/${userEmail}/${uid}`}>
+            <Link to={`/user/${userEmail}`}>
               My Account <i class="fas fa-cog"></i>
             </Link>
           </Button>
@@ -94,9 +73,9 @@ function Sidebar() {
         <SidebarChat addNewChat />
         {rooms.map(
           (room) =>
-            room.data.chatadmin === userEmail && (
+            (room.data.chatadmin === userEmail && (
               <SidebarChat key={room.id} id={room.id} name={room.data.name} />
-            )
+            )) || <SidebarMember id={room.id} name={room.data.name} />
         )}
       </div>
     </div>

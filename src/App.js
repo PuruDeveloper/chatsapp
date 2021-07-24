@@ -1,12 +1,12 @@
 import "./App.css";
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
-import Chat from "./components/Chat";
+import Chat from "./components/chat/Chat";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import { useStateValue } from "./StateProvider";
-import Account from "./components/Account";
-import ChatDetails from "./components/ChatDetails";
+import Account from "./components/account/Account";
+import ChatDetails from "./components/chat/ChatDetails";
 
 function App() {
   const [{ user, userEmail, userName }, dispatch] = useStateValue();
@@ -22,7 +22,7 @@ function App() {
               <Route path="/rooms/:roomName/:seed/:roomId">
                 <Chat />
               </Route>
-              <Route path="/user/:userEmail/:uid">
+              <Route path="/user/:userEmail">
                 <Account />
               </Route>
               <Route exact path="/room/:roomName/:seed/:roomId/details">
