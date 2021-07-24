@@ -85,6 +85,7 @@ function Login() {
             useremail: result.user.email,
             userpassword: Math.floor(Math.random() * 10000000),
             userphoto: result.user?.photoURL,
+            description: "",
           });
           testValue = 0;
 

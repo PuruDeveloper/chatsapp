@@ -1,9 +1,3 @@
-.accountdetails {
-  flex: 0.65;
-  display: flex;
-  flex-direction: column;
-}
-
-.user__image img {
-  border-radius: 9999px;
+.user__detail {
+  margin-top: 16px;
 }

@@ -1,7 +1,7 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  flex: 0.35;
+  flex: 1;
 }
 
 a {
@@ -12,6 +12,7 @@ a {
 .sidebar__header {
   display: flex;
   justify-content: space-between;
+  background-color: rgb(127, 127, 223);
   padding: 20px;
   border-right: 1px solid lightgray;
 }
@@ -31,7 +32,7 @@ a {
 .sidebar__search {
   display: flex;
   align-items: center;
-  background-color: #f6f6f6;
+  background-color: rgb(180, 180, 236);
   height: 39px;
   padding: 10px;
 }

@@ -5,7 +5,7 @@ import Chat from "./components/Chat";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import { useStateValue } from "./StateProvider";
-import AccountDetails from "./components/AccountDetails";
+import Account from "./components/Account";
 import ChatDetails from "./components/ChatDetails";
 
 function App() {
@@ -18,16 +18,18 @@ function App() {
       ) : (
         <div className="app__body">
           <Router>
-            <Sidebar />
             <Switch>
               <Route path="/rooms/:roomName/:seed/:roomId">
                 <Chat />
               </Route>
               <Route path="/user/:userEmail/:uid">
-                <AccountDetails />
+                <Account />
               </Route>
               <Route exact path="/room/:roomName/:seed/:roomId/details">
                 <ChatDetails />
+              </Route>
+              <Route path="/">
+                <Sidebar />
               </Route>
             </Switch>
           </Router>

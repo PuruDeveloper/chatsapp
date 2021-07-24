@@ -1,25 +1,35 @@
 import React from "react";
-import { useStateValue } from "../StateProvider";
 import "./AccountDetails.css";
-import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import "./ChatDetails.css";
 
-function AccountDetails() {
-  const [{ userName, userEmail, uid, photoURL }, dispatch] = useStateValue();
+function AccountDetails({
+  id,
+  description,
+  username,
+  useremail,
+  userpassword,
+}) {
   return (
-    <div class="accountdetails">
-      <Link to="/">
-        <Button>
-          <i class="fas fa-arrow-left"></i>
-        </Button>
-      </Link>
-      <div class="user__image">
-        <img src={photoURL} alt="my-image" />
+    <div className="accountdetails">
+      <div className="user__detail">
+        <h4>About User</h4>
+        {description ? (
+          <h2>description</h2>
+        ) : (
+          "You have not added any description"
+        )}
       </div>
-      <h1>{userName}</h1>
-      <h1>{userEmail}</h1>
-      <h1>{uid}</h1>
+      <div className="user__detail">
+        <h4>User Name :</h4>
+        <h2>{username}</h2>
+      </div>
+      <div className="user__detail">
+        <h4>User Email :</h4>
+        <h2>{useremail}</h2>
+      </div>
+      <div className="user__detail">
+        <h4>User Password :</h4>
+        <h2>{userpassword}</h2>
+      </div>
     </div>
   );
 }
