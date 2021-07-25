@@ -1,6 +1,6 @@
 import { Avatar, Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import "./ChatDetails.css";
 import { useStateValue } from "../../StateProvider";
 import db from "../../firebase";
@@ -11,7 +11,8 @@ function ChatDetails() {
   const { roomId } = useParams();
   const { roomName } = useParams();
   const [{ userEmail }, dispatch] = useStateValue();
-  let roomAdmin = "";
+  const history = useHistory();
+  const [roomAdmin, setRoomAdmin] = useState("");
   let roomAdminPhoto = "";
   let roomAdminUid = "";
   let roomAdminId = "";
@@ -50,13 +51,10 @@ function ChatDetails() {
     );
     //Accepting the rooms admin email id in roomAdmin
     {
-      rooms.map((room) => {
-        for (let i = 0; i < 1; i++) {
-          if (room.id === roomId) {
-            roomAdmin = room.data.chatadmin;
-          }
-        }
-      });
+      rooms.map(
+        (room, key = room.id) =>
+          room.id === roomId && setRoomAdmin(room.data.chatadmin)
+      );
     }
   }, []);
 
@@ -67,10 +65,15 @@ function ChatDetails() {
   const deleteRoom = (e) => {
     e.preventDefault();
 
-    console.log(roomAdmin);
-    // if(roomAdmin === userEmail) {
-    //   db.collection("rooms").
-    // }
+    {
+      rooms.map(
+        (room, key = room.id) =>
+          room.id === roomId &&
+          room.data.chatadmin === userEmail &&
+          db.collection("rooms").doc(roomId).delete() &&
+          history.push(`/`)
+      );
+    }
   };
   return (
     <div className="chatdetails">

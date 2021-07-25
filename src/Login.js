@@ -27,29 +27,14 @@ function Login() {
     );
   }, []);
 
-  // const userHexcodeCheck = () => {
-  //   console.log(userName);
-  //   console.log(testValue);
-  // };
-
   async function googleSignUp() {
     auth
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result.user.uid);
-
-        // db.collection("users");
-        // dispatch({
-        //   type: actionTypes.SET_USER,
-        //   user: result.user,
-        //   userName: result.user.displayName,
-        //   userEmail: result.user.email,
-        // });
+        // console.log(result.user.uid);
 
         setUserPassword(Math.floor(Math.random() * 10000000));
-        setTimeout(() => {
-          console.log(userName);
-        }, 5000);
+        setTimeout(() => {}, 5000);
         //If the user is already registered then we take his username and useremail and uid from the database because he can edit those.
         {
           users.map((user) => {
@@ -113,7 +98,7 @@ function Login() {
         </div>
 
         <Button onClick={googleSignUp}>Sign In With Google</Button>
-        <Button>Sign In Manually</Button>
+        {/* <Button>Sign In Manually</Button> */}
       </div>
     </div>
   );
