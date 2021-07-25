@@ -111,7 +111,7 @@ function ChatDetails() {
           <h4>Global Users</h4>
           {users.map((user, key = user.id) => (
             <ChatGlobalUsers
-              id={user.data.id}
+              id={user.id}
               uid={user.data.uid}
               userphoto={user.data.userphoto}
               useremail={user.data.useremail}

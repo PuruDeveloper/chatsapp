@@ -1,5 +1,7 @@
 .chatglobalusers {
   display: flex;
   flex: 1;
-  flex-direction: column;
+}
+.chatglobalusers__right {
+  margin-left: auto;
 }
