@@ -7,6 +7,7 @@ import Login from "./Login";
 import { useStateValue } from "./StateProvider";
 import Account from "./components/account/Account";
 import ChatDetails from "./components/chat/ChatDetails";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   const [{ user, userEmail, userName }, dispatch] = useStateValue();
@@ -19,18 +20,20 @@ function App() {
         <div className="app__body">
           <Router>
             <Switch>
-              <Route path="/rooms/:roomName/:seed/:roomId">
-                <Chat />
+              <Route exact path="/">
+                <Sidebar />
               </Route>
               <Route path="/user/:userEmail">
                 <Account />
               </Route>
+              <Route path="/rooms/:roomName/:seed/:roomId">
+                <Chat />
+              </Route>
               <Route exact path="/room/:roomName/:seed/:roomId/details">
                 <ChatDetails />
               </Route>
-              <Route path="/">
-                <Sidebar />
-              </Route>
+
+              <Route path="*" component={NotFoundPage} />
             </Switch>
           </Router>
           {/* Chat */}

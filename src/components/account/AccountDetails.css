@@ -1,8 +1,35 @@
-.user__detail {
+.accountdetails {
+  display: flex;
+}
+
+.accountdetails__left {
+  flex: 0.5;
+}
+
+.user__details {
   margin-top: 16px;
+  display: flex;
+}
+
+.user__details > button {
+  margin-left: auto;
+}
+
+.user__details > button:hover {
+  background-color: rgb(226, 209, 211);
 }
 
 .user__image img {
   border-radius: 9999px;
   margin-top: 20px;
+}
+
+.accountdetails__right {
+  padding: 30px;
+}
+
+@media (max-width: 1300px) {
+  .user__details {
+    display: block;
+  }
 }

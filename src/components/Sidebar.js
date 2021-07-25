@@ -37,16 +37,6 @@ function Sidebar() {
           }))
         )
       );
-    // console.log(user);
-
-    // const unsubscribe = db.collection("rooms").collection(roommates).onSnapshot((snapshot) =>
-    //   setRooms(
-    //     snapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       data: doc.data(),
-    //     }))
-    //   )
-    // );
 
     return () => {
       unsubscribe();

@@ -41,7 +41,6 @@
 }
 
 .chat__message {
-  margin-left: auto;
   position: relative;
   font-size: 16px;
   padding: 10px;

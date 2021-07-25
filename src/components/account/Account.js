@@ -36,7 +36,7 @@ function Account() {
         }
       });
     }
-  }, [userpassword]);
+  }, [userpassword, username]);
   return (
     <div class="account">
       <Link to="/">
