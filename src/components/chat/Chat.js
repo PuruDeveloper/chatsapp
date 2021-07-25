@@ -38,6 +38,10 @@ function Chat() {
       email: userEmail,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    //Updating the timestamp of the room with the timestamp of the latest message
+    db.collection("rooms").doc(roomId).update({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
     setInput("");
   };
   return (

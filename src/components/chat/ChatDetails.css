@@ -5,6 +5,31 @@
   background-color: rgb(132, 132, 159);
 }
 
+@media (max-width: 800px) {
+  .chatdetails {
+    display: inline-block;
+    word-break: break-all;
+  }
+  .chatdetails__header {
+    padding: 10px;
+  }
+  .chatdetails__body {
+    display: flex;
+    flex-direction: column;
+  }
+  .chat__members {
+    flex: 0.5;
+    background-repeat: repeat;
+    background-position: center;
+  }
+  .chat__users {
+    flex: 1;
+    overflow: scroll;
+    background-repeat: repeat;
+    background-position: center;
+  }
+}
+
 .chatdetails__header {
   background-color: rgb(127, 127, 223);
   display: flex;
@@ -26,13 +51,13 @@
 }
 
 .chat__members {
-  flex: 1;
+  flex: 0.5;
   padding: 20px;
   background-repeat: repeat;
   background-position: center;
 }
 .chat__users {
-  flex: 1;
+  flex: 0.5;
   flex-direction: column;
   overflow: scroll;
   padding: 30px;

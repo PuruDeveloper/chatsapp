@@ -18,14 +18,25 @@ function Sidebar() {
   const { roomId } = useParams();
 
   useEffect(() => {
-    const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
-      setRooms(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    // const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
+    //   setRooms(
+    //     snapshot.docs.map((doc) => ({
+    //       id: doc.id,
+    //       data: doc.data(),
+    //     }))
+    //   )
+    // );
+    const unsubscribe = db
+      .collection("rooms")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setRooms(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
     // console.log(user);
 
     // const unsubscribe = db.collection("rooms").collection(roommates).onSnapshot((snapshot) =>
