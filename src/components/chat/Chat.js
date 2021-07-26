@@ -150,7 +150,7 @@ function Chat() {
               roommate.data.useremail === userEmail && (
                 <div className="chat">
                   <div className="chat__header">
-                    <Link to="/sidebbar">
+                    <Link to="/">
                       <i class="fas fa-arrow-left"></i>
                     </Link>
                     <Avatar
