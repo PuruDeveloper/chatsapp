@@ -4,6 +4,7 @@ export const initialState = {
   userEmail: null,
   uid: null,
   photoURL: null,
+  test: 0,
 };
 
 export const actionTypes = {
@@ -11,7 +12,7 @@ export const actionTypes = {
 };
 
 const reducer = (state, action) => {
-  // console.log(action);
+  console.log(action);
   switch (action.type) {
     case actionTypes.SET_USER:
       return {
@@ -21,6 +22,7 @@ const reducer = (state, action) => {
         userEmail: action.userEmail,
         uid: action.uid,
         photoURL: action.photoURL,
+        test: action.test,
       };
     default:
       return state;

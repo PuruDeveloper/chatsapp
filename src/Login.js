@@ -6,13 +6,12 @@ import { actionTypes } from "./Reducer";
 import { useStateValue } from "./StateProvider";
 import db from "./firebase";
 
-function Login() {
-  const [{ user, userName, userEmail }, dispatch] = useStateValue();
+function Login({ testValue }) {
+  const [{ user, userName, userEmail, test }, dispatch] = useStateValue();
   const [userPassword, setUserPassword] = useState("");
   const [users, setUsers] = useState([]);
   let photoURL = "";
   let uid = "";
-  let testValue = 0;
   let username = "";
   let useremail = "";
 
@@ -25,6 +24,7 @@ function Login() {
         }))
       )
     );
+    testValue = 0;
   }, []);
 
   async function googleSignUp() {
@@ -39,7 +39,7 @@ function Login() {
         {
           users.map((user) => {
             for (let i = 0; i < 1; i++) {
-              if (user.data.uid === result.user.uid) {
+              if (user.data.useremail === result.user.email) {
                 testValue = 1;
                 username = user.data.username;
                 useremail = user.data.useremail;
@@ -56,14 +56,7 @@ function Login() {
 
         if (testValue === 0) {
           //Dispatching action so that application knows user has logged in
-          dispatch({
-            type: actionTypes.SET_USER,
-            user: result.user,
-            userName: result.user.displayName,
-            userEmail: result.user.email,
-            uid: result.user.uid,
-            photoURL: result.user.photoURL,
-          });
+
           db.collection("users").add({
             uid: result.user.uid,
             username: result.user.displayName,
@@ -72,20 +65,25 @@ function Login() {
             userphoto: result.user?.photoURL,
             description: "",
           });
-          testValue = 0;
-
-          alert("Welcome to the chatsapp");
-        } else if (testValue > 0) {
           dispatch({
             type: actionTypes.SET_USER,
-            user: username,
+            user: "looser",
+            userName: result.user.displayName,
+            userEmail: result.user.email,
+            uid: result.user.uid,
+            photoURL: result.user.photoURL,
+          });
+          alert("Welcome to the chatsapp");
+        } else if (testValue > 0) {
+          alert("We are glad you came back");
+          dispatch({
+            type: actionTypes.SET_USER,
+            user: "Randi",
             userName: username,
             userEmail: useremail,
             uid: uid,
             photoURL: photoURL,
           });
-          alert("We are glad you came back");
-          testValue = 0;
         }
       })
       .catch((error) => alert(error.message));

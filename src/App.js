@@ -14,8 +14,8 @@ function App() {
   return (
     //BEM naming convention
     <div className="app">
-      {!userName ? (
-        <Login />
+      {!userEmail ? (
+        <Login testValue={0} />
       ) : (
         <div className="app__body">
           <Router>
