@@ -8,12 +8,13 @@ import db from "./firebase";
 
 function Login({ testValue }) {
   const [{ user, userName, userEmail, test }, dispatch] = useStateValue();
-  const [userPassword, setUserPassword] = useState("");
+  let userPassword = "";
   const [users, setUsers] = useState([]);
   let photoURL = "";
   let uid = "";
   let username = "";
   let useremail = "";
+  let check = 0;
 
   useEffect(() => {
     const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
@@ -32,7 +33,7 @@ function Login({ testValue }) {
       .then((result) => {
         // console.log(result.user.uid);
 
-        setUserPassword(Math.floor(Math.random() * 10000000));
+        userPassword = Math.floor(Math.random() * 10000000);
         setTimeout(() => {}, 5000);
         //If the user is already registered then we take his username and useremail and uid from the database because he can edit those.
         let i = 0;
@@ -40,11 +41,43 @@ function Login({ testValue }) {
           users.map((user) => {
             i++;
             if (user.data.uid === result.user.uid) {
+              check = 1;
               testValue = 1;
               username = user.data.username;
               useremail = user.data.useremail;
               uid = user.data.uid;
               photoURL = user.data.userphoto;
+              alert("We are glad you came back");
+              dispatch({
+                type: actionTypes.SET_USER,
+                user: "new",
+                userName: username,
+                userEmail: useremail,
+                uid: uid,
+                photoURL: photoURL,
+              });
+            }
+            if (users.length === i && check === 0) {
+              //Dispatching action so that application knows user has logged in
+              dispatch({
+                type: actionTypes.SET_USER,
+                user: result.user,
+                userName: result.user.displayName,
+                userEmail: result.user.email,
+                uid: result.user.uid,
+                photoURL: result.user.photoURL,
+              });
+
+              db.collection("users").add({
+                uid: result.user.uid,
+                username: result.user.displayName,
+                useremail: result.user.email,
+                userpassword: userPassword,
+                userphoto: result.user?.photoURL,
+                description: "",
+              });
+
+              alert("Welcome to the chatsapp");
             }
           });
         }
@@ -52,37 +85,20 @@ function Login({ testValue }) {
         //If testValue === 0 then the user is here for the first time
         //If testValue !== 0 then the user has already been here befor and is a registered user.
 
-        if (testValue === 0) {
-          //Dispatching action so that application knows user has logged in
+        // if (testValue === 0) {
 
-          db.collection("users").add({
-            uid: result.user.uid,
-            username: result.user.displayName,
-            useremail: result.user.email,
-            userpassword: Math.floor(Math.random() * 10000000),
-            userphoto: result.user?.photoURL,
-            description: "",
-          });
-          dispatch({
-            type: actionTypes.SET_USER,
-            user: "looser",
-            userName: result.user.displayName,
-            userEmail: result.user.email,
-            uid: result.user.uid,
-            photoURL: result.user.photoURL,
-          });
-          alert("Welcome to the chatsapp");
-        } else if (testValue > 0) {
-          alert("We are glad you came back");
-          dispatch({
-            type: actionTypes.SET_USER,
-            user: "Randi",
-            userName: username,
-            userEmail: useremail,
-            uid: uid,
-            photoURL: photoURL,
-          });
-        }
+        // }
+        // else if (testValue > 0) {
+        //   alert("We are glad you came back");
+        //   dispatch({
+        //     type: actionTypes.SET_USER,
+        //     user: "Randi",
+        //     userName: username,
+        //     userEmail: useremail,
+        //     uid: uid,
+        //     photoURL: photoURL,
+        //   });
+        // }
       })
       .catch((error) => alert(error.message));
   }
