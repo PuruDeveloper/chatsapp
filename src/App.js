@@ -8,6 +8,7 @@ import { useStateValue } from "./StateProvider";
 import Account from "./components/account/Account";
 import ChatDetails from "./components/chat/ChatDetails";
 import NotFoundPage from "./components/NotFoundPage";
+import AddNewMember from "./components/chat/AddNewMember";
 
 function App() {
   const [{ user, userEmail, userName }, dispatch] = useStateValue();
@@ -23,16 +24,18 @@ function App() {
               <Route exact path="/">
                 <Sidebar />
               </Route>
-              <Route path="/user/:userEmail">
+              <Route exact path="/user/:userEmail">
                 <Account />
               </Route>
-              <Route path="/rooms/:roomName/:seed/:roomId">
+              <Route exact path="/rooms/:roomName/:seed/:roomId">
                 <Chat />
               </Route>
-              <Route exact path="/room/:roomName/:seed/:roomId/details">
+              <Route exact path="/rooms/:roomName/:seed/:roomId/details">
                 <ChatDetails />
               </Route>
-
+              <Route exact path="/rooms/:roomName/:seed/:roomId/addmember">
+                <AddNewMember />
+              </Route>
               <Route path="*" component={NotFoundPage} />
             </Switch>
           </Router>

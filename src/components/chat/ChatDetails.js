@@ -4,7 +4,6 @@ import { useParams, Link, useHistory } from "react-router-dom";
 import "./ChatDetails.css";
 import { useStateValue } from "../../StateProvider";
 import db from "../../firebase";
-import ChatGlobalUsers from "./ChatGlobalUsers";
 
 function ChatDetails() {
   const { seed } = useParams();
@@ -49,6 +48,7 @@ function ChatDetails() {
         }))
       )
     );
+
     //Accepting the rooms admin email id in roomAdmin
     {
       rooms.map(
@@ -57,10 +57,6 @@ function ChatDetails() {
       );
     }
   }, []);
-
-  const addRoommate = (e) => {
-    e.preventDefault();
-  };
 
   const deleteRoom = (e) => {
     e.preventDefault();
@@ -89,7 +85,9 @@ function ChatDetails() {
         </div>
 
         <div className="chatdetails__header__2">
-          <Button onClick={(e) => addRoommate(e)}>Add Roommate</Button>
+          <Link to={`/rooms/${roomName}/${seed}/${roomId}/addmember`}>
+            <Button>Add Roommate</Button>
+          </Link>
         </div>
       </div>
       <div className="chatdetails__body">
@@ -105,17 +103,6 @@ function ChatDetails() {
           )}
           {roommates.map((roommate) => (
             <p>{roommate.data.useremail}</p>
-          ))}
-        </div>
-        <div className="chat__users">
-          <h4>Global Users</h4>
-          {users.map((user, key = user.id) => (
-            <ChatGlobalUsers
-              id={user.id}
-              uid={user.data.uid}
-              userphoto={user.data.userphoto}
-              useremail={user.data.useremail}
-            />
           ))}
         </div>
       </div>

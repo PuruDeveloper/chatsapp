@@ -8,7 +8,7 @@ import { useStateValue } from "../StateProvider";
 import firebase from "firebase";
 
 function SidebarChat({ addNewChat, id, name }) {
-  const [{ user, userEmail, userName }, dispatch] = useStateValue();
+  const [{ user, userEmail, uid, userName }, dispatch] = useStateValue();
   const [seed, setSeed] = useState("");
   const { roomId } = useParams();
   const [roommates, setRoommates] = useState([]);
@@ -50,7 +50,7 @@ function SidebarChat({ addNewChat, id, name }) {
         }))
       )
     );
-  }, [id]);
+  }, []);
 
   // useEffect(() => {
   //   const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
@@ -92,6 +92,29 @@ function SidebarChat({ addNewChat, id, name }) {
         timestamp: timestamp,
         chatadmin: userEmail,
       });
+
+      // db.collection("rooms").onSnapshot((snapshot) =>
+      //   setRooms(
+      //     snapshot.docs.map((doc) => ({
+      //       id: doc.id,
+      //       data: doc.data(),
+      //     }))
+      //   )
+      // );
+
+      //Updating names of roommates in the group that is created just now by the value of chatadmin
+      // {
+      //   rooms.map(
+      //     (room) =>
+      //       room.data.chatadmin === userEmail &&
+      //       room.data.timestamp === timestamp &&
+      //       console.log("hey")
+      //     // db.collection("rooms").doc(room.id).collection("roommates").add({
+      //     //   useremail: userEmail,
+      //     //   uid: uid,
+      //     // })
+      //   );
+      // }
     }
   };
 
