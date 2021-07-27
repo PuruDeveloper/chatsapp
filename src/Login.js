@@ -24,7 +24,6 @@ function Login({ testValue }) {
         }))
       )
     );
-    testValue = 0;
   }, []);
 
   async function googleSignUp() {
@@ -36,17 +35,16 @@ function Login({ testValue }) {
         setUserPassword(Math.floor(Math.random() * 10000000));
         setTimeout(() => {}, 5000);
         //If the user is already registered then we take his username and useremail and uid from the database because he can edit those.
+        let i = 0;
         {
           users.map((user) => {
-            for (let i = 0; i < 1; i++) {
-              if (user.data.useremail === result.user.email) {
-                testValue = 1;
-                username = user.data.username;
-                useremail = user.data.useremail;
-                uid = user.data.uid;
-                photoURL = user.data.userphoto;
-              }
-              break;
+            i++;
+            if (user.data.uid === result.user.uid) {
+              testValue = 1;
+              username = user.data.username;
+              useremail = user.data.useremail;
+              uid = user.data.uid;
+              photoURL = user.data.userphoto;
             }
           });
         }
