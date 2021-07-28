@@ -1,15 +1,46 @@
 import { Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import "./AccountDetails.css";
+import db from "../../firebase";
 
 function AccountDetails({
   photoURL,
   id,
+  uid,
   description,
   username,
   useremail,
   userpassword,
 }) {
+  const [roominvites, setRoominvites] = useState([]);
+
+  const acceptInvite = (e, roomid, roommembers) => {
+    e.preventDefault();
+    db.collection("rooms").doc(roomid).collection("roommates").add({
+      uid: uid,
+      useremail: useremail,
+    });
+    db.collection("rooms")
+      .doc(roomid)
+      .update({
+        members: roommembers + 1,
+      });
+  };
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(id)
+      .collection("roominvites")
+      .onSnapshot((snapshot) =>
+        setRoominvites(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
+
   return (
     <div className="accountdetails">
       <div className="accountdetails__left">
@@ -57,7 +88,25 @@ function AccountDetails({
         </div>
       </div>
       <div className="accountdetails__right">
-        <h3>Room Invites</h3>
+        <h1>Room Invites</h1>
+        <div>
+          {roominvites.map((roominvite) => (
+            <div className="roominvites">
+              <h4>{roominvite.data.roomname}</h4>
+              <Button
+                onClick={(e) =>
+                  acceptInvite(
+                    e,
+                    roominvite.data.roomid,
+                    roominvite.data.roommembers
+                  )
+                }
+              >
+                Accept Invite
+              </Button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

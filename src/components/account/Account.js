@@ -52,6 +52,7 @@ function Account() {
               <AccountDetails
                 photoURL={user.data.userphoto}
                 id={user.id}
+                uid={user.data.uid}
                 description={user.data.description}
                 username={user.data.username}
                 useremail={user.data.useremail}

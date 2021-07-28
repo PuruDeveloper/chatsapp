@@ -2,17 +2,14 @@
   display: flex;
   padding: 20px;
   cursor: pointer;
-  background-color: rgb(153, 153, 194);
+  background: linear-gradient(#293958, #436e9f);
   border-bottom: 1px solid #f6f6f6;
-}
-
-.sidebarChat:hover {
-  background-color: rgb(45, 45, 140);
 }
 
 .sidebarChat__info > h2 {
   font-size: 16px;
   margin-bottom: 8px;
+  color: rgb(199, 191, 191);
 }
 
 .sidebarChat__info {

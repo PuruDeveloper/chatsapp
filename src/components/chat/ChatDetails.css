@@ -31,12 +31,17 @@
 }
 
 .chatdetails__header {
-  background-color: rgb(127, 127, 223);
+  background: linear-gradient(#141e30, #243b55);
+  color: white;
   display: flex;
   padding: 20px;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgb(150, 85, 85);
+}
+
+a {
+  color: white !important;
 }
 
 .chatdetails__header__1 {
@@ -66,9 +71,13 @@
 }
 .chatdetails__footer {
   padding: 20px;
-  background-color: rgb(127, 127, 223);
+  background: linear-gradient(#141e30, #243b55);
+
   position: absolute;
   margin-top: auto;
   bottom: 0;
   align-items: center;
+}
+.chatdetails__footer > button {
+  color: white;
 }

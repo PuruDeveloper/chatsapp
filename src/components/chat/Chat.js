@@ -169,7 +169,7 @@ function Chat() {
                     <div className="chat__headerRight">
                       <Button>
                         <Link
-                          to={`/room/${roomName}/${seed}/${roomId}/details`}
+                          to={`/rooms/${roomName}/${seed}/${roomId}/details`}
                         >
                           Room Details
                         </Link>

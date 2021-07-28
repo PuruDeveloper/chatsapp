@@ -26,10 +26,23 @@
 
 .accountdetails__right {
   padding: 30px;
+  flex: 0.5;
 }
 
 @media (max-width: 1300px) {
   .user__details {
     display: block;
   }
+  .accountdetails {
+    display: block;
+  }
+}
+
+.roominvites {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.roominvites > button:hover {
+  background-color: rgb(226, 209, 211);
 }

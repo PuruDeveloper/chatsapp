@@ -1,0 +1,14 @@
+.individualinvite {
+  display: block;
+}
+
+.individual {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.individual > button {
+  margin-left: auto;
+}
