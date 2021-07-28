@@ -13,32 +13,62 @@ function AccountDetails({
   userpassword,
 }) {
   const [roominvites, setRoominvites] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
-  const acceptInvite = (e, roomid, roommembers) => {
+  const acceptInvite = (e, inviteid, roomid) => {
     e.preventDefault();
     db.collection("rooms").doc(roomid).collection("roommates").add({
       uid: uid,
       useremail: useremail,
     });
-    db.collection("rooms")
-      .doc(roomid)
-      .update({
-        members: roommembers + 1,
-      });
+
+    {
+      rooms.map(
+        (room) =>
+          room.id === roomid &&
+          db
+            .collection("rooms")
+            .doc(roomid)
+            .update({
+              members: room.data.members + 1,
+            })
+      );
+    }
+
+    db.collection("roominvites").doc(inviteid).delete();
+
+    // db.collection("rooms")
+    //   .doc(roomid)
+    //   .update({
+    //     members: roommembers + 1,
+    //   });
   };
 
   useEffect(() => {
-    db.collection("users")
-      .doc(id)
-      .collection("roominvites")
+    db.collection("roominvites").onSnapshot((snapshot) =>
+      setRoominvites(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+
+    const unsubscribe = db
+      .collection("rooms")
+      .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) =>
-        setRoominvites(
+        setRooms(
           snapshot.docs.map((doc) => ({
             id: doc.id,
             data: doc.data(),
           }))
         )
       );
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (
@@ -90,22 +120,21 @@ function AccountDetails({
       <div className="accountdetails__right">
         <h1>Room Invites</h1>
         <div>
-          {roominvites.map((roominvite) => (
-            <div className="roominvites">
-              <h4>{roominvite.data.roomname}</h4>
-              <Button
-                onClick={(e) =>
-                  acceptInvite(
-                    e,
-                    roominvite.data.roomid,
-                    roominvite.data.roommembers
-                  )
-                }
-              >
-                Accept Invite
-              </Button>
-            </div>
-          ))}
+          {roominvites.map(
+            (roominvite) =>
+              roominvite.data.useremail === useremail && (
+                <div className="roominvites">
+                  <h4>{roominvite.data.roomname}</h4>
+                  <Button
+                    onClick={(e) =>
+                      acceptInvite(e, roominvite.id, roominvite.data.roomid)
+                    }
+                  >
+                    Accept Invite
+                  </Button>
+                </div>
+              )
+          )}
         </div>
       </div>
     </div>

@@ -12,11 +12,17 @@ function IndividualInvite({
 }) {
   const sendInvite = (e) => {
     e.preventDefault();
-    db.collection("users").doc(userid).collection("roominvites").add({
+    db.collection("roominvites").add({
       roomid: roomid,
       roomname: roomname,
-      roommembers: roommembers,
+      userid: userid,
+      useremail: useremail,
     });
+    // db.collection("users").doc(userid).collection("roominvites").add({
+    //   roomid: roomid,
+    //   roomname: roomname,
+    //   roommembers: roommembers,
+    // });
   };
   return (
     <div className="individualinvite">
