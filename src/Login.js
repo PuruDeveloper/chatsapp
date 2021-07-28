@@ -108,7 +108,6 @@ function Login({ testValue }) {
         <div className="login__text">
           <h1>Sign up to chatsapp</h1>
         </div>
-
         <Button onClick={googleSignUp}>Sign In With Google</Button>
         {/* <Button>Sign In Manually</Button> */}
       </div>
