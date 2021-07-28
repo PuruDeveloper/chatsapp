@@ -91,6 +91,7 @@ function SidebarChat({ addNewChat, id, name }) {
         name: roomName,
         timestamp: timestamp,
         chatadmin: userEmail,
+        members: 1,
       });
 
       // db.collection("rooms").onSnapshot((snapshot) =>

@@ -8,10 +8,20 @@ function AddNewMember() {
   const { roomId } = useParams();
   const [users, setUsers] = useState([]);
   const [roommates, setRoommates] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     db.collection("users").onSnapshot((snapshot) =>
       setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+
+    db.collection("rooms").onSnapshot((snapshot) =>
+      setRooms(
         snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
@@ -34,23 +44,37 @@ function AddNewMember() {
 
   return (
     <div className="addnewmember">
-      {roommates ? (
-        <ul>
-          {users.map((user) =>
-            roommates.map(
-              (roommate) =>
-                roommate.data.useremail !== user.data.useremail && (
-                  <li>{user.data.useremail}</li>
+      {rooms.map(
+        (room) =>
+          room.id === roomId &&
+          room.data.members > 1 && (
+            <ul>
+              {users.map((user) =>
+                roommates.map(
+                  (roommate) =>
+                    room.data.chatadmin !== user.data.useremail &&
+                    roommate.data.useremail !== user.data.useremail && (
+                      <li>{user.data.useremail}</li>
+                    )
                 )
-            )
-          )}
-        </ul>
-      ) : (
-        <ul>
-          {users.map((user) => (
-            <li>{user.data.useremail}</li>
-          ))}
-        </ul>
+              )}
+            </ul>
+          )
+      )}
+
+      {rooms.map(
+        (room) =>
+          room.id === roomId &&
+          room.data.members === 1 && (
+            <ul>
+              {users.map(
+                (user) =>
+                  room.data.chatadmin !== user.data.useremail && (
+                    <li>{user.data.useremail}</li>
+                  )
+              )}
+            </ul>
+          )
       )}
     </div>
   );
