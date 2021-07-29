@@ -15,6 +15,11 @@ function AccountDetails({
   const [roominvites, setRoominvites] = useState([]);
   const [rooms, setRooms] = useState([]);
 
+  const deleteInvite = (e, inviteid, roomid) => {
+    e.preventDefault();
+    db.collection("roominvites").doc(inviteid).delete();
+  };
+
   const acceptInvite = (e, inviteid, roomid) => {
     e.preventDefault();
     db.collection("roominvites").doc(inviteid).delete();
@@ -124,13 +129,22 @@ function AccountDetails({
               roominvite.data.useremail === useremail && (
                 <div className="roominvites">
                   <h4>{roominvite.data.roomname}</h4>
-                  <Button
-                    onClick={(e) =>
-                      acceptInvite(e, roominvite.id, roominvite.data.roomid)
-                    }
-                  >
-                    Accept Invite
-                  </Button>
+                  <div className="invitebuttons">
+                    <Button
+                      onClick={(e) =>
+                        deleteInvite(e, roominvite.id, roominvite.data.roomid)
+                      }
+                    >
+                      Delete Invite
+                    </Button>
+                    <Button
+                      onClick={(e) =>
+                        acceptInvite(e, roominvite.id, roominvite.data.roomid)
+                      }
+                    >
+                      Accept Invite
+                    </Button>
+                  </div>
                 </div>
               )
           )}

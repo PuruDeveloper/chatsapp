@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useStateValue } from "../../StateProvider";
 import "./Account.css";
 import { Button } from "@material-ui/core";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import db from "../../firebase";
 import AccountDetails from "./AccountDetails";
 import { actionTypes } from "../../Reducer";
 
 function Account() {
   const [{ userEmail, userName, uid, photoURL }, dispatch] = useStateValue();
-  // const { userEmail } = useParams();
+  const history = useHistory();
   const [users, setUsers] = useState([]);
   let username = "";
   let useremail = "";
@@ -25,6 +25,7 @@ function Account() {
       uid: null,
       photoURL: null,
     });
+    history.push(`/`);
   };
 
   useEffect(() => {

@@ -25,6 +25,12 @@
   flex: 0.5;
 }
 
+.roominvites {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @media (max-width: 1300px) {
   .user__details {
     display: block;
@@ -34,8 +40,8 @@
   }
 }
 
-.roominvites {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+@media (max-width: 700px) {
+  .roominvites {
+    display: block;
+  }
 }
