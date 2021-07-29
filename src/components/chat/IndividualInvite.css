@@ -3,12 +3,33 @@
 }
 
 .individual {
-  width: 50%;
-  text-align: center;
+  width: 90%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .individual > button {
   margin-left: auto;
+  background-color: #3774e6;
+  border: 1px solid #2f59a7;
+  outline: none;
+  font-weight: 700;
+  min-width: 100px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.individual > button:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 100px #03e9f4;
+}
+
+@media (max-width: 850px) {
+  .individual {
+    width: 90%;
+  }
 }

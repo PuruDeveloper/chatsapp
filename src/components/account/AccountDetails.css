@@ -15,10 +15,6 @@
   margin-left: auto;
 }
 
-.user__details > button:hover {
-  background-color: rgb(226, 209, 211);
-}
-
 .user__image img {
   border-radius: 9999px;
   margin-top: 20px;
@@ -42,7 +38,4 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.roominvites > button:hover {
-  background-color: rgb(226, 209, 211);
 }

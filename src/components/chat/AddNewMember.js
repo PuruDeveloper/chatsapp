@@ -8,8 +8,11 @@ function AddNewMember() {
   const { roomName } = useParams();
   const { roomId } = useParams();
   const [users, setUsers] = useState([]);
-  const [roommates, setRoommates] = useState([]);
+
   const [rooms, setRooms] = useState([]);
+  const [roominvites, setRoominvites] = useState([]);
+  const filteredUsers = [];
+  let filteredRoomInvites = [];
 
   useEffect(() => {
     db.collection("users").onSnapshot((snapshot) =>
@@ -30,17 +33,14 @@ function AddNewMember() {
       )
     );
 
-    db.collection("rooms")
-      .doc(roomId)
-      .collection("roommates")
-      .onSnapshot((snapshot) =>
-        setRoommates(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
+    db.collection("roominvites").onSnapshot((snapshot) =>
+      setRoominvites(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
   }, []);
 
   return (
@@ -52,19 +52,16 @@ function AddNewMember() {
             room.id === roomId &&
             room.data.members > 1 && (
               <ul>
-                {users.map((user) =>
-                  roommates.map(
-                    (roommate) =>
-                      room.data.chatadmin !== user.data.useremail &&
-                      roommate.data.useremail !== user.data.useremail && (
-                        <IndividualInvite
-                          userid={user.id}
-                          useremail={user.data.useremail}
-                          roomid={room.id}
-                          roomname={room.data.name}
-                        />
-                      )
-                  )
+                {users.map(
+                  (user) =>
+                    room.data.chatadmin !== user.data.useremail && (
+                      <IndividualInvite
+                        userid={user.id}
+                        useremail={user.data.useremail}
+                        roomid={room.id}
+                        roomname={room.data.name}
+                      />
+                    )
                 )}
               </ul>
             )
