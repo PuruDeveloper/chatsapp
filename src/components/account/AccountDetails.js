@@ -17,6 +17,7 @@ function AccountDetails({
 
   const acceptInvite = (e, inviteid, roomid) => {
     e.preventDefault();
+    db.collection("roominvites").doc(inviteid).delete();
     db.collection("rooms").doc(roomid).collection("roommates").add({
       uid: uid,
       useremail: useremail,
@@ -34,8 +35,6 @@ function AccountDetails({
             })
       );
     }
-
-    db.collection("roominvites").doc(inviteid).delete();
 
     // db.collection("rooms")
     //   .doc(roomid)

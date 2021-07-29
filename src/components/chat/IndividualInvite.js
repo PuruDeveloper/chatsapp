@@ -1,15 +1,13 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./IndividualInvite.css";
 import db from "../../firebase";
+import { useParams } from "react-router-dom";
 
-function IndividualInvite({
-  userid,
-  useremail,
-  roomid,
-  roomname,
-  roommembers,
-}) {
+function IndividualInvite({ userid, useremail, roomid, roomname }) {
+  const [roominvites, setRoominvites] = useState([]);
+  const { roomId } = useParams();
+
   const sendInvite = (e) => {
     e.preventDefault();
     db.collection("roominvites").add({
@@ -18,12 +16,19 @@ function IndividualInvite({
       userid: userid,
       useremail: useremail,
     });
-    // db.collection("users").doc(userid).collection("roominvites").add({
-    //   roomid: roomid,
-    //   roomname: roomname,
-    //   roommembers: roommembers,
-    // });
   };
+
+  useEffect(() => {
+    db.collection("roominvites").onSnapshot((snapshot) =>
+      setRoominvites(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+  }, []);
+
   return (
     <div className="individualinvite">
       <div className="individual">

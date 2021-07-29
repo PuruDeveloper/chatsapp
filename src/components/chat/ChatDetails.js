@@ -76,9 +76,7 @@ function ChatDetails() {
       <div className="chatdetails__header">
         <div className="chatdetails__header__1">
           <Link to={`/rooms/${roomName}/${seed}/${roomId}`}>
-            <Button>
-              <i class="fas fa-arrow-left"></i>
-            </Button>
+            <i class="fas fa-arrow-left"></i>
           </Link>
           <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
           <h3>{roomName}</h3>
