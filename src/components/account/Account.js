@@ -5,14 +5,27 @@ import { Button } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import db from "../../firebase";
 import AccountDetails from "./AccountDetails";
+import { actionTypes } from "../../Reducer";
 
 function Account() {
-  const [{ userName, uid, photoURL }, dispatch] = useStateValue();
-  const { userEmail } = useParams();
+  const [{ userEmail, userName, uid, photoURL }, dispatch] = useStateValue();
+  // const { userEmail } = useParams();
   const [users, setUsers] = useState([]);
   let username = "";
   let useremail = "";
   let userpassword = "";
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: actionTypes.SET_USER,
+      user: null,
+      userName: null,
+      userEmail: null,
+      uid: null,
+      photoURL: null,
+    });
+  };
 
   useEffect(() => {
     db.collection("users").onSnapshot((snapshot) =>
@@ -36,7 +49,7 @@ function Account() {
         }
       });
     }
-  }, [userpassword, username]);
+  }, []);
   return (
     <div class="account">
       <Link to="/">
@@ -44,6 +57,9 @@ function Account() {
           <i class="fas fa-arrow-left"></i>
         </Button>
       </Link>
+      <Button className="logout" onClick={(e) => logout(e)}>
+        LOG OUT
+      </Button>
 
       <div>
         {users.map(
