@@ -85,7 +85,34 @@ function AccountDetails({
     });
   };
 
-  const changeUsername = (e, username) => {
+  //To change description
+
+  const changeDescription = (e) => {
+    e.preventDefault();
+    const newdescription = prompt("Please enter description");
+    if (newdescription && newdescription.length <= 120) {
+      db.collection("users").onSnapshot((snapshot) =>
+        setUsers(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+
+      db.collection("users").doc(id).update({
+        description: newdescription,
+      });
+    } else if (newdescription && newdescription.length > 120) {
+      alert("You exceeded the limit of 120 characters");
+    } else {
+      alert("You need to enter something");
+    }
+  };
+
+  //To change UserName
+
+  const changeUsername = (e) => {
     e.preventDefault();
     const newusername = prompt("Please enter room name");
     if (newusername) {
@@ -104,11 +131,34 @@ function AccountDetails({
         alert("Username already exists");
       } else {
         updateRoomAdmin(newusername);
-
-        console.log("Now that is a new user name!!");
       }
     } else {
       alert("You need to put some username befor submitting man!");
+    }
+  };
+
+  //To change Password
+
+  const changePassword = (e) => {
+    e.preventDefault();
+    const newpassword = prompt("Please enter password");
+    if (newpassword && newpassword.length >= 8) {
+      db.collection("users").onSnapshot((snapshot) =>
+        setUsers(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+
+      db.collection("users").doc(id).update({
+        userpassword: newpassword,
+      });
+    } else if (newpassword && newpassword.length < 8) {
+      alert("Your password should be atleast 8 characters strong");
+    } else {
+      alert("You need to enter something");
     }
   };
 
@@ -150,13 +200,12 @@ function AccountDetails({
         <div className="user__details">
           <div className="user__detail">
             <h4>About User</h4>
-            <h2>
-              {description
-                ? { description }
-                : "You have not added any description"}
-            </h2>
+            <h2>{description}</h2>
           </div>
-          <Button>
+          <Button
+            className="change__button"
+            onClick={(e) => changeDescription(e)}
+          >
             <h4>Change Description</h4>
           </Button>
         </div>
@@ -167,7 +216,7 @@ function AccountDetails({
             <h2>{username}</h2>
           </div>
 
-          <Button onClick={(e) => changeUsername(e)}>
+          <Button className="change__button" onClick={(e) => changeUsername(e)}>
             <h4>Change UserName</h4>
           </Button>
         </div>
@@ -183,7 +232,7 @@ function AccountDetails({
             <h4>User Password :</h4>
             <h2>{userpassword}</h2>
           </div>
-          <Button>
+          <Button className="change__button" onClick={(e) => changePassword(e)}>
             <h4>Change Password</h4>
           </Button>
         </div>

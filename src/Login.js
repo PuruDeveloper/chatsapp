@@ -74,7 +74,7 @@ function Login({ testValue }) {
                 useremail: result.user.email,
                 userpassword: userPassword,
                 userphoto: result.user?.photoURL,
-                description: "",
+                description: "Hey there I am using ChatsApp",
               });
 
               alert("Welcome to the chatsapp");

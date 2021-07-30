@@ -9,10 +9,18 @@
 .user__details {
   margin-top: 16px;
   display: flex;
+  align-items: center;
 }
 
 .user__details > button {
   margin-left: auto;
+}
+.change__button {
+  width: 228px !important;
+  max-height: 50px;
+}
+.user__detail {
+  margin: 20px;
 }
 
 .user__image img {
