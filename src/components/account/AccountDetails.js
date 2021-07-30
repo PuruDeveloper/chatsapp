@@ -55,11 +55,20 @@ function AccountDetails({
 
   const userExists = (newusername) => {
     usernameError = false;
+    db.collection("users").onSnapshot((snapshot) =>
+      setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
     {
       users.map(
         (user) => user.data.username === newusername && (usernameError = true)
       );
     }
+    return usernameError;
   };
 
   const updateRoomAdmin = (newusername) => {
@@ -116,18 +125,7 @@ function AccountDetails({
     e.preventDefault();
     const newusername = prompt("Please enter room name");
     if (newusername) {
-      db.collection("users").onSnapshot((snapshot) =>
-        setUsers(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
-
-      userExists(newusername);
-
-      if (usernameError) {
+      if (userExists(newusername)) {
         alert("Username already exists");
       } else {
         updateRoomAdmin(newusername);
