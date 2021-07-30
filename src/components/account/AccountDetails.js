@@ -151,7 +151,6 @@ function AccountDetails({
           }))
         )
       );
-
       db.collection("users").doc(id).update({
         userpassword: newpassword,
       });
