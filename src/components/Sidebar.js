@@ -12,7 +12,8 @@ import { useStateValue } from "../StateProvider";
 import SidebarMember from "./SidebarMember";
 
 function Sidebar() {
-  const [{ user, userEmail, uid, photoURL }, dispatch] = useStateValue();
+  const [{ user, userEmail, uid, userName, photoURL }, dispatch] =
+    useStateValue();
 
   const [rooms, setRooms] = useState([]);
   const { roomId } = useParams();
@@ -74,7 +75,7 @@ function Sidebar() {
         <SidebarChat addNewChat />
         {rooms.map(
           (room) =>
-            (room.data.chatadmin === userEmail && (
+            (room.data.chatadmin === userName && (
               <SidebarChat key={room.id} id={room.id} name={room.data.name} />
             )) || <SidebarMember id={room.id} name={room.data.name} />
         )}

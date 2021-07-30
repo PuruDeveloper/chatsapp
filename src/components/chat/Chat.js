@@ -74,7 +74,7 @@ function Chat() {
     <div className="chat">
       {rooms.map(
         (room) =>
-          (room.id === roomId && room.data.chatadmin === userEmail && (
+          (room.id === roomId && room.data.chatadmin === userName && (
             <div className="chat">
               <div className="chat__header">
                 <Link to="/">

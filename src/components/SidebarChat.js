@@ -90,7 +90,7 @@ function SidebarChat({ addNewChat, id, name }) {
       db.collection("rooms").add({
         name: roomName,
         timestamp: timestamp,
-        chatadmin: userEmail,
+        chatadmin: userName,
         members: 1,
       });
 

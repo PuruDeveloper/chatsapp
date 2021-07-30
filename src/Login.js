@@ -70,7 +70,7 @@ function Login({ testValue }) {
 
               db.collection("users").add({
                 uid: result.user.uid,
-                username: result.user.displayName,
+                username: result.user.email,
                 useremail: result.user.email,
                 userpassword: userPassword,
                 userphoto: result.user?.photoURL,

@@ -94,8 +94,9 @@ function ChatDetails() {
           {rooms.map(
             (room, key = room.id) =>
               room.id === roomId && (
-                <div>
+                <div className="roomadmin__line">
                   <p>{room.data.chatadmin}</p>
+                  <i class="fas fa-user-shield">ADMIN</i>
                 </div>
               )
           )}

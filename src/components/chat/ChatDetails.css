@@ -63,6 +63,17 @@ a {
   flex: 1;
 }
 
+.roomadmin__line {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  position: relative;
+}
+.roomadmin__line > i {
+  margin-left: 20px;
+  color: white !important;
+}
+
 .chat__members {
   flex: 0.5;
   padding: 20px;

@@ -2,6 +2,8 @@ import { Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import "./AccountDetails.css";
 import db from "../../firebase";
+import { actionTypes } from "../../Reducer";
+import { useStateValue } from "../../StateProvider";
 
 function AccountDetails({
   photoURL,
@@ -12,8 +14,11 @@ function AccountDetails({
   useremail,
   userpassword,
 }) {
+  const [{ user }, dispatch] = useStateValue();
   const [roominvites, setRoominvites] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [users, setUsers] = useState([]);
+  let usernameError = false;
 
   const deleteInvite = (e, inviteid, roomid) => {
     e.preventDefault();
@@ -46,6 +51,61 @@ function AccountDetails({
     //   .update({
     //     members: roommembers + 1,
     //   });
+  };
+
+  const userExists = (newusername) => {
+    usernameError = false;
+    {
+      users.map(
+        (user) => user.data.username === newusername && (usernameError = true)
+      );
+    }
+  };
+
+  const updateRoomAdmin = (newusername) => {
+    {
+      rooms.map(
+        (room) =>
+          room.data.chatadmin === username &&
+          db.collection("rooms").doc(room.id).update({
+            chatadmin: newusername,
+          })
+      );
+    }
+    db.collection("users").doc(id).update({
+      username: newusername,
+    });
+    dispatch({
+      type: actionTypes.SET_USER,
+      user: "old",
+      userName: newusername,
+      userEmail: useremail,
+      uid: uid,
+      photoURL: photoURL,
+    });
+  };
+
+  const changeUsername = (e, username) => {
+    e.preventDefault();
+    const newusername = prompt("Please enter room name");
+    db.collection("users").onSnapshot((snapshot) =>
+      setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+
+    userExists(newusername);
+
+    if (usernameError) {
+      alert("Username already exists");
+    } else {
+      updateRoomAdmin(newusername);
+
+      console.log("Now that is a new user name!!");
+    }
   };
 
   useEffect(() => {
@@ -96,15 +156,18 @@ function AccountDetails({
             <h4>Change Description</h4>
           </Button>
         </div>
+
         <div className="user__details">
           <div className="user__detail">
             <h4>User Name :</h4>
             <h2>{username}</h2>
           </div>
-          <Button>
+
+          <Button onClick={(e) => changeUsername(e)}>
             <h4>Change UserName</h4>
           </Button>
         </div>
+
         <div className="user__details">
           <div className="user__detail">
             <h4>User Email :</h4>

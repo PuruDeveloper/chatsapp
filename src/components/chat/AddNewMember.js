@@ -60,6 +60,7 @@ function AddNewMember() {
                         useremail={user.data.useremail}
                         roomid={room.id}
                         roomname={room.data.name}
+                        username={user.data.username}
                       />
                     )
                 )}
@@ -82,6 +83,7 @@ function AddNewMember() {
                         useremail={user.data.useremail}
                         roomid={room.id}
                         roomname={room.data.name}
+                        username={user.data.username}
                       />
                     )
                 )}

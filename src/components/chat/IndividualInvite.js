@@ -4,7 +4,7 @@ import "./IndividualInvite.css";
 import db from "../../firebase";
 import { useParams } from "react-router-dom";
 
-function IndividualInvite({ userid, useremail, roomid, roomname }) {
+function IndividualInvite({ userid, useremail, roomid, roomname, username }) {
   const [roominvites, setRoominvites] = useState([]);
   const { roomId } = useParams();
   let roommateExist = false;
@@ -81,7 +81,7 @@ function IndividualInvite({ userid, useremail, roomid, roomname }) {
   return (
     <div className="individualinvite">
       <div className="individual">
-        <h3>{useremail}</h3>
+        <h3>{username}</h3>
         <button
           disabled={userExist(useremail) || inviteExist(useremail)}
           onClick={(e) => sendInvite(e, userid)}
