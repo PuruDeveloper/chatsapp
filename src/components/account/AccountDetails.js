@@ -88,23 +88,27 @@ function AccountDetails({
   const changeUsername = (e, username) => {
     e.preventDefault();
     const newusername = prompt("Please enter room name");
-    db.collection("users").onSnapshot((snapshot) =>
-      setUsers(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    if (newusername) {
+      db.collection("users").onSnapshot((snapshot) =>
+        setUsers(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
 
-    userExists(newusername);
+      userExists(newusername);
 
-    if (usernameError) {
-      alert("Username already exists");
+      if (usernameError) {
+        alert("Username already exists");
+      } else {
+        updateRoomAdmin(newusername);
+
+        console.log("Now that is a new user name!!");
+      }
     } else {
-      updateRoomAdmin(newusername);
-
-      console.log("Now that is a new user name!!");
+      alert("You need to put some username befor submitting man!");
     }
   };
 
