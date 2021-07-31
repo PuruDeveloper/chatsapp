@@ -77,20 +77,20 @@ function AccountDetails({
         (room) =>
           room.data.chatadmin === username &&
           db.collection("rooms").doc(room.id).update({
-            chatadmin: newusername,
+            chatadmin: `${newusername}`,
           })
       );
     }
     db.collection("users").doc(id).update({
-      username: newusername,
+      username: `${newusername}`,
     });
     dispatch({
       type: actionTypes.SET_USER,
       user: "old",
-      userName: newusername,
-      userEmail: useremail,
-      uid: uid,
-      photoURL: photoURL,
+      userName: `${newusername}`,
+      userEmail: `${useremail}`,
+      uid: `${uid}`,
+      photoURL: `${photoURL}`,
     });
   };
 
@@ -110,7 +110,7 @@ function AccountDetails({
       );
 
       db.collection("users").doc(id).update({
-        description: newdescription,
+        description: `${newdescription}`,
       });
     } else if (newdescription && newdescription.length > 120) {
       alert("You exceeded the limit of 120 characters");
@@ -125,10 +125,11 @@ function AccountDetails({
     e.preventDefault();
     const newusername = prompt("Please enter room name");
     if (newusername) {
-      if (userExists(newusername)) {
+      if (userExists(newusername) === true) {
         alert("Username already exists");
       } else {
         updateRoomAdmin(newusername);
+        // alert("username does not exists")
       }
     } else {
       alert("You need to put some username befor submitting man!");
@@ -215,9 +216,9 @@ function AccountDetails({
             <h2>{username}</h2>
           </div>
 
-          {/* <Button className="change__button" onClick={(e) => changeUsername(e)}>
+          <Button className="change__button" onClick={(e) => changeUsername(e)}>
             <h4>Change UserName</h4>
-          </Button> */}
+          </Button>
         </div>
 
         <div className="user__details">

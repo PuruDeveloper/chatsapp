@@ -65,10 +65,10 @@ function Login({ testValue }) {
           dispatch({
             type: actionTypes.SET_USER,
             user: "new",
-            userName: username,
-            userEmail: useremail,
-            uid: uid,
-            photoURL: photoURL,
+            userName: `${username}`,
+            userEmail: `${useremail}`,
+            uid: `${uid}`,
+            photoURL: `${photoURL}`,
           }))
       );
     }
@@ -100,30 +100,30 @@ function Login({ testValue }) {
               alert("We are glad you came back");
               dispatch({
                 type: actionTypes.SET_USER,
-                user: "new",
-                userName: username,
-                userEmail: useremail,
-                uid: uid,
-                photoURL: photoURL,
+                user: "old",
+                userName: `${username}`,
+                userEmail: `${useremail}`,
+                uid: `${uid}`,
+                photoURL: `${photoURL}`,
               });
             }
             if (users.length === i && check === 0) {
               //Dispatching action so that application knows user has logged in
               dispatch({
                 type: actionTypes.SET_USER,
-                user: result.user,
-                userName: result.user.displayName,
-                userEmail: result.user.email,
-                uid: result.user.uid,
-                photoURL: result.user.photoURL,
+                user: "new",
+                userName: `${result.user.displayName}`,
+                userEmail: `${result.user.email}`,
+                uid: `${result.user.uid}`,
+                photoURL: `${result.user.photoURL}`,
               });
 
               db.collection("users").add({
-                uid: result.user.uid,
-                username: result.user.email,
-                useremail: result.user.email,
+                uid: `${result.user.uid}`,
+                username: `${result.user.email}`,
+                useremail: `${result.user.email}`,
                 userpassword: `${userPassword}`,
-                userphoto: result.user?.photoURL,
+                userphoto: `${result.user?.photoURL}`,
                 description: "Hey there I am using ChatsApp",
               });
 
