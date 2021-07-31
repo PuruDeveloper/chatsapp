@@ -54,21 +54,22 @@ function AccountDetails({
   };
 
   const userExists = (newusername) => {
-    usernameError = false;
-    db.collection("users").onSnapshot((snapshot) =>
-      setUsers(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    
+    let exists = 0;
+    
     {
       users.map(
-        (user) => user.data.username === newusername && (usernameError = true)
+        (user) => user.data.username === newusername && 
+        ( 
+          (exists = 1),
+          (alert("Username already exists"))
+        )
       );
     }
-    return usernameError;
+     console.log(exists);
+     if(exists === 0) {
+       updateRoomAdmin(newusername);
+     }
   };
 
   const updateRoomAdmin = (newusername) => {
@@ -125,12 +126,7 @@ function AccountDetails({
     e.preventDefault();
     const newusername = prompt("Please enter room name");
     if (newusername) {
-      if (userExists(newusername) === true) {
-        alert("Username already exists");
-      } else {
-        updateRoomAdmin(newusername);
-        // alert("username does not exists")
-      }
+      userExists(`${newusername}`)
     } else {
       alert("You need to put some username befor submitting man!");
     }
@@ -163,6 +159,15 @@ function AccountDetails({
   };
 
   useEffect(() => {
+    db.collection("users").onSnapshot((snapshot) =>
+      setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+
     db.collection("roominvites").onSnapshot((snapshot) =>
       setRoominvites(
         snapshot.docs.map((doc) => ({
