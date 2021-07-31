@@ -149,9 +149,11 @@ function AccountDetails({
           }))
         )
       );
-      db.collection("users").doc(id).update({
-        userpassword: newpassword,
-      });
+      db.collection("users")
+        .doc(id)
+        .update({
+          userpassword: `${newpassword}`,
+        });
     } else if (newpassword && newpassword.length < 8) {
       alert("Your password should be atleast 8 characters strong");
     } else {
@@ -213,9 +215,9 @@ function AccountDetails({
             <h2>{username}</h2>
           </div>
 
-          <Button className="change__button" onClick={(e) => changeUsername(e)}>
+          {/* <Button className="change__button" onClick={(e) => changeUsername(e)}>
             <h4>Change UserName</h4>
-          </Button>
+          </Button> */}
         </div>
 
         <div className="user__details">

@@ -21,12 +21,12 @@ function Login({ testValue }) {
 
   const changeUsername = (e) => {
     e.preventDefault();
-    setManualUsername(e.target.value);
+    setManualUsername(`${e.target.value}`);
   };
 
   const changePassword = (e) => {
     e.preventDefault();
-    setManualPassword(e.target.value);
+    setManualPassword(`${e.target.value}`);
   };
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function Login({ testValue }) {
       )
     );
     testValue = 0;
+    console.log(manualPassword);
     {
       users.map(
         (user) =>
@@ -121,7 +122,7 @@ function Login({ testValue }) {
                 uid: result.user.uid,
                 username: result.user.email,
                 useremail: result.user.email,
-                userpassword: userPassword,
+                userpassword: `${userPassword}`,
                 userphoto: result.user?.photoURL,
                 description: "Hey there I am using ChatsApp",
               });
@@ -142,7 +143,7 @@ function Login({ testValue }) {
         <div className="welcome__text">
           <p>Welcome to chatUP</p>
         </div>
-        <form className="form">
+        <form className="form" type="submit">
           <label>Username</label>
           <input
             value={manualUsername}
@@ -158,10 +159,8 @@ function Login({ testValue }) {
             type="text"
           ></input>
 
-          <button>
-            <Button type="submit" onClick={(e) => manualSignIn(e)}>
-              LogIn
-            </Button>
+          <button type="submit" onClick={(e) => manualSignIn(e)}>
+            <Button>LogIn</Button>
           </button>
         </form>
 
