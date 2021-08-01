@@ -88,14 +88,19 @@
 .chat__footer > form {
   flex: 1;
   display: flex;
+  position: relative;
 }
 
 .chat__footer > form > input {
+  position: relative;
   flex: 1;
   border-radius: 30px;
   border: none;
   padding: 10px;
   outline: none;
+  align-items: center;
+  bottom: 10px;
+  right: 10px;
 }
 
 .chat__footer > form > button {

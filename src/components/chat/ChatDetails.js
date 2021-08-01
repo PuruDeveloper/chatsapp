@@ -17,6 +17,7 @@ function ChatDetails() {
   let roomAdminId = "";
   const [rooms, setRooms] = useState([]);
   const [users, setUsers] = useState([]);
+  const [roominvites, setRoominvites] = useState([]);
   const [roommates, setRoommates] = useState([]);
 
   useEffect(() => {
@@ -33,6 +34,14 @@ function ChatDetails() {
       );
     db.collection("users").onSnapshot((snapshot) =>
       setUsers(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+    db.collection("roominvites").onSnapshot((snapshot) =>
+      setRoominvites(
         snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
@@ -71,6 +80,40 @@ function ChatDetails() {
       );
     }
   };
+
+  const changeRoomName = (e) => {
+    e.preventDefault();
+    const newroomname = prompt("Enter new name");
+    if (newroomname) {
+      {
+        roominvites.map(
+          (roominvite) =>
+            roominvite.data.roomid === `${roomId}` &&
+            db
+              .collection("roominvites")
+              .doc(roominvite.id)
+              .update({
+                roomname: `${newroomname}`,
+              })
+        );
+      }
+      {
+        rooms.map(
+          (room) =>
+            room.id === roomId &&
+            db
+              .collection("rooms")
+              .doc(room.id)
+              .update({
+                name: `${newroomname}`,
+              })
+        );
+      }
+      history.push(`/rooms/${newroomname}/${seed}/${roomId}/details`);
+    } else {
+      alert("Invalid");
+    }
+  };
   return (
     <div className="chatdetails">
       <div className="chatdetails__header">
@@ -107,6 +150,7 @@ function ChatDetails() {
       </div>
       <div className="chatdetails__footer">
         <Button onClick={(e) => deleteRoom(e)}>Delete Room</Button>
+        <Button onClick={(e) => changeRoomName(e)}>Change Room Name</Button>
       </div>
     </div>
   );

@@ -61,6 +61,8 @@ a {
   background-color: rgb(132, 132, 159);
   display: flex;
   flex: 1;
+
+  overflow: scroll;
 }
 
 .roomadmin__line {
@@ -94,9 +96,11 @@ a {
 
   position: absolute;
   margin-top: auto;
+  padding: 16px;
   bottom: 0;
   align-items: center;
 }
 .chatdetails__footer > button {
   color: white;
+  margin: 16px;
 }

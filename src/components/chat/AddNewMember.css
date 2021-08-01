@@ -1,6 +1,7 @@
 .addnewmember {
   padding: 30px;
-  height: 100vh;
+  max-height: 100vh;
   background: #2f68d0;
   width: 100vw;
+  overflow: scroll;
 }
