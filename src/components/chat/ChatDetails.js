@@ -156,6 +156,7 @@ function ChatDetails() {
       </div>
       <div className="chatdetails__body">
         <div className="chat__members">
+          <p>Only admin can delete room or remove members</p>
           <h4>Room Members</h4>
           {rooms.map(
             (room, key = room.id) =>
@@ -170,10 +171,7 @@ function ChatDetails() {
             <div>
               <p>{roommate.data.useremail}</p>
 
-              <Button
-                disabled={!(roomAdmin === userName)}
-                onClick={(e) => removeMember(e, roommate.id)}
-              >
+              <Button onClick={(e) => removeMember(e, roommate.id)}>
                 Dismember
               </Button>
             </div>
@@ -181,12 +179,7 @@ function ChatDetails() {
         </div>
       </div>
       <div className="chatdetails__footer">
-        <Button
-          disabled={!(roomAdmin === userName)}
-          onClick={(e) => deleteRoom(e)}
-        >
-          Delete Room
-        </Button>
+        <Button onClick={(e) => deleteRoom(e)}>Delete Room</Button>
         <Button onClick={(e) => changeRoomName(e)}>Change Room Name</Button>
       </div>
     </div>
