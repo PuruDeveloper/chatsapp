@@ -53,11 +53,13 @@ function Account() {
   }, []);
   return (
     <div class="account">
-      <Link to="/">
-        <Button>
-          <i class="fas fa-arrow-left"></i>
-        </Button>
-      </Link>
+      <div>
+        <Link to="/">
+          <Button>
+            <i class="fas fa-arrow-left"></i>
+          </Button>
+        </Link>
+      </div>
       <Button className="logout" onClick={(e) => logout(e)}>
         LOG OUT
       </Button>

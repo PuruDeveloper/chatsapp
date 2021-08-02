@@ -9,7 +9,7 @@ function ChatDetails() {
   const { seed } = useParams();
   const { roomId } = useParams();
   const { roomName } = useParams();
-  const [{ userEmail }, dispatch] = useStateValue();
+  const [{ userEmail, userName }, dispatch] = useStateValue();
   const history = useHistory();
   const [roomAdmin, setRoomAdmin] = useState("");
   let roomAdminPhoto = "";
@@ -114,6 +114,29 @@ function ChatDetails() {
       alert("Invalid");
     }
   };
+
+  const removeMember = (e, id) => {
+    e.preventDefault();
+    {
+      rooms.map(
+        (room) =>
+          room.id === roomId &&
+          room.data.chatadmin === userName &&
+          db
+            .collection("rooms")
+            .doc(roomId)
+            .collection("roommates")
+            .doc(id)
+            .delete() &&
+          db
+            .collection("rooms")
+            .doc(room.id)
+            .update({
+              members: room.data.members - 1,
+            })
+      );
+    }
+  };
   return (
     <div className="chatdetails">
       <div className="chatdetails__header">
@@ -125,9 +148,9 @@ function ChatDetails() {
           <h3>{roomName}</h3>
         </div>
 
-        <div className="chatdetails__header__2">
+        <div>
           <Link to={`/rooms/${roomName}/${seed}/${roomId}/addmember`}>
-            <Button>Add Roommate</Button>
+            <Button className="chatdetails__header__2">Add Roommate</Button>
           </Link>
         </div>
       </div>
@@ -144,12 +167,26 @@ function ChatDetails() {
               )
           )}
           {roommates.map((roommate) => (
-            <p>{roommate.data.useremail}</p>
+            <div>
+              <p>{roommate.data.useremail}</p>
+
+              <Button
+                disabled={!(roomAdmin === userName)}
+                onClick={(e) => removeMember(e, roommate.id)}
+              >
+                Dismember
+              </Button>
+            </div>
           ))}
         </div>
       </div>
       <div className="chatdetails__footer">
-        <Button onClick={(e) => deleteRoom(e)}>Delete Room</Button>
+        <Button
+          disabled={!(roomAdmin === userName)}
+          onClick={(e) => deleteRoom(e)}
+        >
+          Delete Room
+        </Button>
         <Button onClick={(e) => changeRoomName(e)}>Change Room Name</Button>
       </div>
     </div>

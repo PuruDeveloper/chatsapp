@@ -54,22 +54,19 @@ function AccountDetails({
   };
 
   const userExists = (newusername) => {
-    
     let exists = 0;
-    
+
     {
       users.map(
-        (user) => user.data.username === newusername && 
-        ( 
-          (exists = 1),
-          (alert("Username already exists"))
-        )
+        (user) =>
+          user.data.username === newusername &&
+          ((exists = 1), alert("Username already exists"))
       );
     }
-     console.log(exists);
-     if(exists === 0) {
-       updateRoomAdmin(newusername);
-     }
+    console.log(exists);
+    if (exists === 0) {
+      updateRoomAdmin(newusername);
+    }
   };
 
   const updateRoomAdmin = (newusername) => {
@@ -77,14 +74,19 @@ function AccountDetails({
       rooms.map(
         (room) =>
           room.data.chatadmin === username &&
-          db.collection("rooms").doc(room.id).update({
-            chatadmin: `${newusername}`,
-          })
+          db
+            .collection("rooms")
+            .doc(room.id)
+            .update({
+              chatadmin: `${newusername}`,
+            })
       );
     }
-    db.collection("users").doc(id).update({
-      username: `${newusername}`,
-    });
+    db.collection("users")
+      .doc(id)
+      .update({
+        username: `${newusername}`,
+      });
     dispatch({
       type: actionTypes.SET_USER,
       user: "old",
@@ -110,9 +112,11 @@ function AccountDetails({
         )
       );
 
-      db.collection("users").doc(id).update({
-        description: `${newdescription}`,
-      });
+      db.collection("users")
+        .doc(id)
+        .update({
+          description: `${newdescription}`,
+        });
     } else if (newdescription && newdescription.length > 120) {
       alert("You exceeded the limit of 120 characters");
     } else {
@@ -126,7 +130,7 @@ function AccountDetails({
     e.preventDefault();
     const newusername = prompt("Please enter room name");
     if (newusername) {
-      userExists(`${newusername}`)
+      userExists(`${newusername}`);
     } else {
       alert("You need to put some username befor submitting man!");
     }
@@ -252,6 +256,7 @@ function AccountDetails({
                   <h4>{roominvite.data.roomname}</h4>
                   <div className="invitebuttons">
                     <Button
+                      className="change__button"
                       onClick={(e) =>
                         deleteInvite(e, roominvite.id, roominvite.data.roomid)
                       }
@@ -259,6 +264,7 @@ function AccountDetails({
                       Delete Invite
                     </Button>
                     <Button
+                      className="change__button"
                       onClick={(e) =>
                         acceptInvite(e, roominvite.id, roominvite.data.roomid)
                       }

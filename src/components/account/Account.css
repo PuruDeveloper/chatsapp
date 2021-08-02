@@ -5,13 +5,17 @@
   word-break: break-all;
   flex-direction: column;
   padding: 20px;
-  background: linear-gradient(#141e30, #243b55);
+  background-color: #5cdb95;
 }
 
-.logout {
-  background: #03e9f4;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-    0 0 100px #03e9f4;
+.fa-arrow-left {
+  color: #5cdb95;
+}
+
+.account > button {
+  background-color: #05386b;
+}
+
+.account > button:hover {
+  background-color: #4c7eb0;
 }

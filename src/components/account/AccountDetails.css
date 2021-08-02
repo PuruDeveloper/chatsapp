@@ -12,12 +12,27 @@
   align-items: center;
 }
 
+.user__details > button:hover {
+  background-color: #4c7eb0;
+}
+
 .user__details > button {
   margin-left: auto;
+  background-color: #05386b;
+}
+
+.invitebuttons > button {
+  background-color: #05386b;
+}
+
+.invitebuttons > button:hover {
+  background-color: #4c7eb0;
 }
 .change__button {
   width: 228px !important;
   max-height: 50px;
+  box-shadow: 0 0 5px #48b67a, 0 0 25px #5cdb95, 0 0 50px #5cdb95,
+    0 0 100px #5cdb95;
 }
 .user__detail {
   margin: 20px;

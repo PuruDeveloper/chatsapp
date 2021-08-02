@@ -159,9 +159,9 @@ function Login({ testValue }) {
             type="text"
           ></input>
 
-          <button type="submit" onClick={(e) => manualSignIn(e)}>
-            <Button>LogIn</Button>
-          </button>
+          <Button type="submit" onClick={(e) => manualSignIn(e)}>
+            LogIn
+          </Button>
         </form>
 
         <p>or</p>

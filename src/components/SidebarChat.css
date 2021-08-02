@@ -2,16 +2,31 @@
   display: flex;
   padding: 20px;
   cursor: pointer;
-  background: linear-gradient(#293958, #436e9f);
+  background-color: #5cdb95;
   border-bottom: 1px solid #f6f6f6;
+}
+
+.addNewChat {
+  background-color: #05386b;
 }
 
 .sidebarChat__info > h2 {
   font-size: 16px;
   margin-bottom: 8px;
-  color: rgb(199, 191, 191);
+  color: black;
+}
+.sidebarChat__info > p {
+  color: black;
 }
 
 .sidebarChat__info {
   margin-left: 16px;
+}
+
+.sidebarChat:hover {
+  background-color: #8ee4af;
+}
+
+.addNewChat:hover {
+  background-color: #4c7eb0;
 }

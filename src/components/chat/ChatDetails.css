@@ -4,7 +4,7 @@
   position: relative;
   margin: 0;
   padding: 0;
-  background-color: rgb(132, 132, 159);
+  background-color: #edf5e1;
 }
 
 @media (max-width: 800px) {
@@ -33,7 +33,7 @@
 }
 
 .chatdetails__header {
-  background: linear-gradient(#141e30, #243b55);
+  background-color: #5cdb95;
   color: white;
   display: flex;
   padding: 20px;
@@ -53,12 +53,17 @@ a {
 .chatdetails__header__1 > h3 {
   padding-left: 20px;
 }
+
 .MuiButton-root {
   color: white !important;
+  background-color: #05386b !important;
 }
 
+button:hover {
+  background-color: #4c7eb0 !important;
+}
 .chatdetails__body {
-  background-color: rgb(132, 132, 159);
+  background-color: #edf5e1;
   display: flex;
   flex: 1;
 
@@ -73,7 +78,7 @@ a {
 }
 .roomadmin__line > i {
   margin-left: 20px;
-  color: white !important;
+  color: #05386b !important;
 }
 
 .chat__members {
@@ -92,8 +97,6 @@ a {
 }
 .chatdetails__footer {
   padding: 20px;
-  background: linear-gradient(#141e30, #243b55);
-
   position: absolute;
   margin-top: auto;
   padding: 16px;
