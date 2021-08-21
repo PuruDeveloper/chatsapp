@@ -38,6 +38,9 @@ function Login({ testValue }) {
         }))
       )
     );
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const manualSignIn = (e) => {
@@ -138,10 +141,10 @@ function Login({ testValue }) {
     <div className="login">
       <div className="login__container">
         <div className="login__text">
-          <h1>ChatUP</h1>
+          <h1>dosUNO</h1>
         </div>
         <div className="welcome__text">
-          <p>Welcome to chatUP</p>
+          <p>Welcome to dosUNO</p>
         </div>
         <form className="form" type="submit">
           <label>Username</label>

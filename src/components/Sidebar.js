@@ -49,11 +49,11 @@ function Sidebar() {
         <Avatar src={photoURL} alt="" />
 
         <div className="sidebar__headerRight">
-          <Button>
-            <Link to={`/user/${userEmail}`}>
+          <Link to={`/user/${userEmail}`}>
+            <Button>
               My Account <i class="fas fa-cog"></i>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
           {/* <IconButton>
             <DonutLagreIcon />
           </IconButton>

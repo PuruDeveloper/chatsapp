@@ -44,7 +44,7 @@
 }
 
 .chat__body {
-  background: #edf5e1;
+  background: #8ee4af;
   flex: 1;
   background-repeat: repeat;
   background-position: center;
@@ -70,7 +70,7 @@
   color: #141e30;
   border-radius: 10px;
   width: fit-content;
-  background-color: #8ee4af;
+  background-color: white;
   margin-bottom: 16px;
 }
 

@@ -74,7 +74,7 @@ function ChatDetails() {
       rooms.map(
         (room, key = room.id) =>
           room.id === roomId &&
-          room.data.chatadmin === userEmail &&
+          room.data.chatadmin === userName &&
           db.collection("rooms").doc(roomId).delete() &&
           history.push(`/`)
       );

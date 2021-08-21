@@ -7,16 +7,17 @@
 }
 
 .addNewChat {
+  color: white;
   background-color: #05386b;
 }
 
 .sidebarChat__info > h2 {
   font-size: 16px;
   margin-bottom: 8px;
-  color: black;
+  color: #05386b;
 }
 .sidebarChat__info > p {
-  color: black;
+  color: #05386b;
 }
 
 .sidebarChat__info {

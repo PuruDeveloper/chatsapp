@@ -215,7 +215,7 @@ function AccountDetails({
             className="change__button"
             onClick={(e) => changeDescription(e)}
           >
-            <h4>Change Description</h4>
+            Change Description
           </Button>
         </div>
 
@@ -226,7 +226,7 @@ function AccountDetails({
           </div>
 
           <Button className="change__button" onClick={(e) => changeUsername(e)}>
-            <h4>Change UserName</h4>
+            Change UserName
           </Button>
         </div>
 
@@ -242,7 +242,7 @@ function AccountDetails({
             <h2>{userpassword}</h2>
           </div>
           <Button className="change__button" onClick={(e) => changePassword(e)}>
-            <h4>Change Password</h4>
+            Change Password
           </Button>
         </div>
       </div>
